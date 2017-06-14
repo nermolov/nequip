@@ -1,4 +1,4 @@
-# nequip - Remote online EQUIP-like GUI for QuarkNet Detectors
+# rEQUIP - Remote (online) EQUIP-like GUI for QuarkNet Detectors
 
 * Split into client/server later on
 * Use websockets
