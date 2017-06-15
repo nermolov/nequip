@@ -3,6 +3,7 @@
 * Split into client/server later on
 * Use websockets
 * Use golang for remote side
+* use something like this for status display on pi: https://www.adafruit.com/product/1115
 
 Absolutely random notes:
 
