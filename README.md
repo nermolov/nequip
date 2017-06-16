@@ -4,6 +4,7 @@
 * Use websockets
 * Use golang for remote side
 * use something like this for status display on pi: https://www.adafruit.com/product/1115
+* NOte: i2u2 can handle data files without carriage returns just fine.
 
 Absolutely random notes:
 

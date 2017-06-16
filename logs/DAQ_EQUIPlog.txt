@@ -1,0 +1,109 @@
+H1
+Quarknet Scintillator Card,  Qnet2.5  Vers 1.12  Compiled Feb 22 2010  HE=Help
+Serial#=6431     uC_Volts=3.33      GPS_TempC=26.5     mBar=1014.8
+
+CE     - TMC Counter Enable.
+CD     - TMC Counter Disable.
+DC     - Display Control Registers, (C0-C3).
+WC a d - Write   Control Registers, addr(0-6) data byte(H).
+DT     - Display TMC Reg, 0-3, (1=PipeLineDelayRd, 2=PipeLineDelayWr).
+WT a d - Write   TMC Reg, addr(1,2) data byte(H), if a=4 write delay word.
+DG     - Display GPS Info, Date, Time, Position and Status.
+DS     - Display Scalar, channel(S0-S3), trigger(S4), time(S5).
+RE     - Reset complete board to power up defaults.
+RB     - Reset only the TMC and Counters.
+SB p d - Set Baud,password, 1=19K, 2=38K, 3=57K ,4=115K, 5=230K, 6=460K, 7=920K
+SA n   - Save setup, 0=(TMC disable), 1=(TMC enable), 2=(Restore Defaults).
+TH     - Thermometer data display (@ GPS), -40 to 99 degrees C.
+TL c d - Threshold Level, signal ch(0-3)(4=setAll), data(0-4095mV), TL=read.
+Veto   - Veto select, Off='VE 0', On='VE 1', Gate='VG c', 0-255(D) 10ns/cnt. 
+View   - View setup registers. Setup=V1, Voltages(V2), GPS LOCK(V3).
+HELP   - HE,H1=Page1, H2=Page2, HB=Barometer, HS=Status, HT=Trigger.
+
+DG
+DG
+ Date+Time: 16/06/17 22:44:07.007
+ Status:    A (valid)
+ PosFix#:   1
+ Latitude:   42:04.857366 N
+ Longitude: 087:48.708198 W
+ Altitude:  205.471m
+ Sats used: 8
+ PPS delay: +0000 msec         (CE=1 updates PPS,FPGA data)
+ FPGA time: 69CCF291
+ FPGA freq:  2874940 Hz        (Cmd V3, freq history)
+ ChkSumErr: 0
+DC
+DC C0=3F C1=71 C2=0A C3=00
+DT
+DT T0=00 T1=A0 T2=A4 T3=00
+DS
+DS S0=00000000 S1=00000000 S2=00000000 S3=00000000 S4=00000000 S5=69DA86CA
+TL
+TL L0=300 L1=300 L2=300 L3=300
+TI
+TI 00 00:01:11.954
+BA
+BA 1495
+ Adjust this count 1495 to calibrate sensor in mBar.
+ mBar now reads  = 1014.8  (use cmd 'SA' when done)
+SN
+Serial#=6431
+V1
+ Run Mode       : On          CE (cnt enable), CD (cnt disable)
+ Ch(s) Enabled  : 3,2,1,0     Cmd DC  Reg C0 using (bits 3-0)
+ Veto Enable    : Off         VE 0 (Off),  VE 1 (On)
+ Veto Select    : Ch0         Cmd DC  Reg C0 using (bits 7,6)
+ Coincidence 1-4: 4-Fold      Cmd DC  Reg C0 using (bits 5,4)
+ Pipe Line Delay:    40 nS    Cmd DT  Reg T1=rDelay  Reg T2=wDelay  10nS/cnt
+ Gate Width     :   100 nS    Cmd DC  Reg C2=LowByte Reg C3=HighByte 10nS/cnt
+ Veto Width     :     0 nS    Cmd VG  (10nS/cnt)
+ Ch0 Threshold  : 0.300 vlts
+ Ch1 Threshold  : 0.300 vlts
+ Ch2 Threshold  : 0.300 vlts
+ Ch3 Threshold  : 0.300 vlts
+ Test Pulser Vlt: 3.000 vlts
+ Test Pulse Ena : Off
+
+ Example line for 1 of 4 channels. (Line Drawing, Not to Scale)
+ Input Pulse edges (begin/end) set rising/falling tags bits.
+ ____~~~~~~_________________________________ Input Pulse, Gate cycle begins
+ __________________~________________________ Delayed Rise Edge 'RE' Tag Bit
+ ________________________~__________________ Delayed Fall Edge 'FE' Tag Bit
+     _____________                           Tag Bits delayed by PipeLnDly
+ ___|             |_________________________ PipeLineDelay :   40nS
+                   _____________________
+ _________________|                     |___ Capture Window:   60nS
+     ___________________________________
+ ___|                                   |___ Gate Width    :  100nS
+
+ If 'RE','FE' are outside Capture Window, data tag bit(s) will be missing.
+ CaptureWindow = GateWidth - PipeLineDelay
+ The default Pipe Line Delay is 40nS, default Gate Width is 100nS.
+ Setup CMD sequence for Pipeline Delay.  CD,  WT 1 0, WT 2 nn (10nS/cnt)
+ Setup CMD sequence for Gate Width.  CD, WC 2 nn(10nS/cnt), WC 3 nn (2.56uS/cnt)
+V2
+Barometer Pressure Sensor
+  Calibration Voltage  = 1495 mVolts   Use Cmd 'BA' to calibrate.
+  Sensor Output Voltage= 1523 mVolts   (2.93mV *  520 Cnts)
+  Pressure mBar        = 1014.8        (1523.6 - 1500)/15 + 1013.25
+  Pressure inch        = 30.37         (mBar / 33.42)
+
+Timer Capture/Compare Channel
+  TempC  = 26.5    421- (751*(85416/162598)) (PulseHighTime/PulseLowTime)
+  TempF  = 79.7    (TempC * 1.8) + 32
+
+Analog to Digital Converter Channels(ADC)
+  Vcc 1.80V = 1.80 vlts     (2.93mV *  615 Cnts)
+  Vcc 1.20V = 1.20 vlts     (2.93mV *  410 Cnts)
+  Pos 2.50V = 2.46 vlts     (2.93mV *  839 Cnts)
+  Neg 5.00V = 5.06 vlts     (7.38mV *  686 Cnts)
+  Vcc 3.30V = 3.33 vlts     (4.84mV *  687 Cnts)
+  Pos 5.00V = 4.86 vlts     (7.38mV *  659 Cnts)
+  5V Test    Max=4.87v    Min=4.85v    Noise=0.022v
+
+ST 3 5
+ST Enabled, scalar data plus reset counters
+ST
+ST 1014 +264 +000 3325 224407 160617 A 08 6A3EAF11 112 6431 00797500 000A713F
+DS 00000000 00000000 00000000 00000000 00000000

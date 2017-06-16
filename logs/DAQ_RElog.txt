@@ -1,0 +1,11 @@
+
+RE
+
+Qnet Hardware Version 2.5
+IAR Compiler Vers 50410.0                  
+Loading FPGA...FPGA-Load: 65142 bytes loaded, CheckSum=0x88B4
+FPGA-Load: ConfigDone Ok!
+
+Quarknet Scintillator Card,  Qnet2.5  Vers 1.12  Compiled Feb 22 2010  HE=Help
+Serial#=6431     uC_Volts=3.33      GPS_TempC=26.6     mBar=1014.8
+Ready, Counters Enabled.
