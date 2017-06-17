@@ -1,7 +1,7 @@
 # rEQUIP - Remote (online) EQUIP-like GUI for QuarkNet Detectors
 
 * Split into client/server later on
-* Use websockets
+* Use websockets - https://github.com/gorilla/websocket
 * Use golang for remote side
 * use something like this for status display on pi: https://www.adafruit.com/product/1115
 * NOte: i2u2 can handle data files without carriage returns just fine.
@@ -12,7 +12,7 @@ remote sensor system:
 all the hardware communicates over one serial channel with a small headless linux board (rpi or something)
 
 server system:
-communicates with headless linux board over the internet and creates a terminal(edited)
+communicates with headless linux board over the internet and creates a terminal
 
 client side:
 connects to server from web interface and does serial stuff
