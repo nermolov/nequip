@@ -1,24 +1,37 @@
-var SerialPort = require('serialport');
+var SerialPort = require('serialport')
+var socket = require('socket.io-client')('http://localhost:8080')
+
 var port = new SerialPort('/dev/ttyUSB0', {
-    baudRate: 115200,
-    dataBits: 8,
-    xon: true,
-    xoff: true,
-    xany: true
-});
+  baudRate: 115200,
+  dataBits: 8,
+  xon: true,
+  xoff: true,
+  xany: true
+})
 
+// socket.on('connect', function () {})
+// socket.on('event', function (data) {})
+// socket.on('disconnect', function () {})
+
+socket.on('connect', function () {
+  socket.emit('connType', 'rpi-client')
+  console.log('> WS Opened')
+})
 port.on('open', () => {
-  console.log('Port Opened');
-});
+  console.log('> Serial Opened')
+})
 
-setTimeout(function(){
-port.write("H1\r\n", (err) => {
-  if (err) { return console.log('Error: ', err.message) }
-  console.log('message written');
-});
-},1000);
+function serialWrite (data) {
+  port.write(data, (err) => {
+    if (err) { return console.log('Error: ', err.message) }
+    console.log('> Message Written')
+  })
+}
+socket.on('serial-write', serialWrite)
 
 port.on('data', (data) => {
-  /* get a buffer of data from the serial port */
-  console.log(data.toString());
-});
+  var dataString = data.toString()
+  console.log('> Data Output:')
+  console.log(dataString)
+  socket.emit('serial-recv', dataString)
+})
