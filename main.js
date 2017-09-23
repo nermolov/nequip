@@ -1,5 +1,6 @@
 var SerialPort = require('serialport')
 var socket = require('socket.io-client')('http://localhost:8080')
+var fs = require('fs')
 
 var port = new SerialPort('/dev/ttyUSB0', {
   baudRate: 115200,
@@ -13,7 +14,14 @@ var port = new SerialPort('/dev/ttyUSB0', {
 // socket.on('event', function (data) {})
 // socket.on('disconnect', function () {})
 
-socket.on('connect', function () {
+var datafile
+function startDataRec () {
+  var dateobj = new Date()
+  var tstamp = dateobj.toISOString().replace(/:/g, '.')
+  // datafile = fs
+}
+
+socket.on('connect', () => {
   socket.emit('connType', 'rpi-client')
   console.log('> WS Opened')
 })
