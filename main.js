@@ -7,18 +7,18 @@ var port = new SerialPort('/dev/ttyUSB0', {
     xany: true
 });
 
-// setTimeout(function(){port.write("H1\n", function(err) {
-//     if (err) {
-//       return console.log('Error on write: ', err.message);
-//     }
-//     console.log('message written');
-// });},1000);
+port.on('open', () => {
+  console.log('Port Opened');
+});
 
-// Open errors will be emitted as an error event
-port.on('error', function(err) {
-    console.log('Error: ', err.message);
-})
+setTimeout(function(){
+port.write("H1\r\n", (err) => {
+  if (err) { return console.log('Error: ', err.message) }
+  console.log('message written');
+});
+},1000);
 
-port.on('data', function (data) {
-    console.log(data.toString('utf-8'));
+port.on('data', (data) => {
+  /* get a buffer of data from the serial port */
+  console.log(data.toString());
 });
